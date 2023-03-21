@@ -1,0 +1,2 @@
+package io.security.corespringsecurity.controller.admin;public class ConfigController {
+}
