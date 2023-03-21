@@ -1,19 +1,23 @@
 package io.security.corespringsecurity.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
 public class HomeController {
 
-//    @GetMapping(value = "/")
-//    public String home() throws Exception {
-//        return "admin/config";
+//    @GetMapping("/")
+//    public ModelAndView index() throws Exception {
+//        //return "admin/config";
+//        return new ModelAndView("login");
 //    }
-      @RequestMapping(value="/", method = RequestMethod.GET)
-      public ModelAndView create() {
-          return new ModelAndView("home");
-      }
+
+//    @RequestMapping("/home")
+//    public ModelAndView home() {
+//          return new ModelAndView("home");
+//      }
 }
