@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -12,6 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/assets/**", "/plugins/**");
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
@@ -37,11 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/config").hasRole("ADMIN")
                 .anyRequest().authenticated()
 
-                .and()
+        .and()
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("login_proc")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/home") // 로그인 성공 후 리다이렉트 주소
+                .loginProcessingUrl("/login_proc")
                 .permitAll()
         ;
     }
