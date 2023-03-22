@@ -32,14 +32,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/security/login").permitAll()
                 //.antMatchers("/mypage").hasRole("USER")
                 //.antMatchers("/messages").hasRole("MANAGER")
                 //.antMatchers("/config").hasRole("ADMIN")
                 .anyRequest().authenticated()
         .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/security/login")
                 .defaultSuccessUrl("/home") // 로그인 성공 후 리다이렉트 주소
                 //.loginProcessingUrl("/login_proc")
                 //.permitAll()
