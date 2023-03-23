@@ -17,24 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = {"","/"} , method = {RequestMethod.GET,RequestMethod.POST} , produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = {"","/","home"} , method = {RequestMethod.GET,RequestMethod.POST} , produces = "application/json; charset=UTF-8")
     public String index(HttpServletRequest request, HttpServletResponse response) {
-
-        log.info("Home Test");
-
-        return "security/login";
+        return "/home";
     }
-
-
-//    @GetMapping("")
-//    public String index() throws Exception {
-//        log.info("TEST");
-//        //return "admin/config";
-//        return "/security/login";
-//    }
-
-    @RequestMapping("/home")
-    public String home() {
-          return "home";
-      }
 }
