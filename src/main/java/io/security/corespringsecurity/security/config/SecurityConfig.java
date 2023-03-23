@@ -1,9 +1,11 @@
 package io.security.corespringsecurity.security.config;
 
+import io.security.corespringsecurity.security.provider.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -32,8 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
         .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home") // 로그인 성공 후 리다이렉트 주소
-                .failureUrl("/home")
+                .loginProcessingUrl("/login_proc")
+                .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트 주소
+                .permitAll()
                 .and()
 
         .logout()
@@ -48,7 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        //auth.userDetailsService(userDetailsService);
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        return new CustomAuthenticationProvider();
     }
 
     //실전프로젝트 -인증 프로세스 Form 인증 구현 - 2)정적 자원 관리
