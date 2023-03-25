@@ -34,6 +34,8 @@ public class UserController {
 
         ModelMapper modelMapper = new ModelMapper();
         Account account = modelMapper.map(accountDto, Account.class);
+
+        //비밀번호 암호화 해서 저장하기
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         account.setRole(accountDto.getRole());
         userService.createUser(account);

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="layout/header::userHead">
+		<title>LOGIN</title>
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/static/css/bootstrap-table.css">
+		<script src="/static/js/jquery-2.1.3.min.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/bootstrap-table.js"></script>
+</head>
+<body>
+<div th:replace="layout/top::header"></div>
+	<!-- 서브페이지 로고, 로그인, 검색 공통부 header 끝-->
+<div class="container">
+	<div class="row align-times-start">
+		<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+			<div class="sidebar-sticky">
+				<ul class="nav flex-column">
+					<li class="nav-item">
+						<div class="nav flex-column nav-pills" aria-orientation="vertical">
+							<a th:href="@{/}" class="nav-link text-primary">대시보드</a>
+							<a th:href="@{/mypage}" class="nav-link text-primary">마이페이지</a>
+							<a th:href="@{/messages}" class="nav-link text-primary">메시지</a>
+							<a th:href="@{/config}" class="nav-link text-primary">환경설정</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div class="col">
+			<div class="container text-center">
+				<div class="login-form d-flex justify-content-center">
+					<div class="col-sm-5" style="margin-top: 30px;">
+						<div class="panel">
+							<p>아이디와 비밀번호를 입력해주세요</p>
+						</div>
+						<div th:if="${param.error}" class="form-group">
+							<span th:text="${exception}" class="alert alert-danger">잘못된 아이디나 암호입니다</span>
+							<input th:value="${msg}" type="text" id="loginRslt" hidden="true" />
+						</div>
+						<form th:action="@{/login_proc}" name="form-signin" method="post">
+							<input type="hidden" th:value="secret" name="secret_key" />
+							<div>
+								<img class="form-group"/>
+								<input type="text" class="form-control" name="username" placeholder="아이디" required="required" autofocus="autofocus">
+							</div>
+							<div>
+								<img class="form-group" />
+								<input type="password" class="form-control" name="password" placeholder="비밀번호" required="required">
+							</div>
+							<div>
+								<button type="submit" class="btn btn-lg btn-primary btn-block">로그인</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+
+
+
+
+				<div class="div_login_error">
+					<div th:if="${errMsg}" class="btn btn-outline-danger">
+						<span th:text="${errMsg}" />
+					</div>
+					<div th:if="${param.logout} and ${#strings.isEmpty(errMsg)}"
+						 class="btn btn-outline-success">로그아웃 되었습니다.</div>
+					<div th:if="${param.error} and ${#strings.isEmpty(errMsg)}"
+						 class="btn btn-outline-danger">사용자 계정과 비밀번호를 확인해주세요.</div>
+				</div>
+				<!--	<div class="sub-section login">-->
+				<!--		<div class="login-con">-->
+				<!--			<div class="login-logo">-->
+				<!--				<a th:href="@{./loginBack}"> <img-->
+				<!--					th:src="@{/img/logo/logo-kor.png}" alt="User Avatar">-->
+				<!--				</a>-->
+				<!--			</div>-->
+				<!--			<div class="login-bg"></div>-->
+				<!--			<div class="login-form">-->
+				<!--				<form action="#" th:action="@{/loginBack}" name="f" method="post">-->
+				<!--					<input type="text" id="username" name="username"-->
+				<!--						th:value="${username}" onkeyup="showClrUsrNm()"-->
+				<!--						placeholder="아이디 입력" required> <input type="password"-->
+				<!--						id="password" name="password" placeholder="비밀번호 입력" required>-->
+				<!--					<button type="submit" class="btn-login">로그인</button>-->
+				<!--			</div>-->
+				<!--		</div>-->
+				<!--	</div>-->
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<!--	<script th:src="@{/js/security/login.js}"></script>-->
+<head th:replace="layout/footer::footer"></head>
+</body>>
+</html>
