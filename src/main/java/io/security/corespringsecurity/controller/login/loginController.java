@@ -23,6 +23,7 @@ public class loginController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication != null){
+            //SecurityContextLogoutHandler().logout() 실제 로그 아웃 처리를 해주는 핸들러
             new SecurityContextLogoutHandler().logout(request,response,authentication);
         }
 
